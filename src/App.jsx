@@ -93,9 +93,6 @@ function PresenceTag({data, num, lecturer, video}){
             <button className='absolute btn border border-white bottom-5 right-5' onClick={()=>{setVisible(!visible)}}>Close</button>
           </form>
       </div>
-      {/* <form method="dialog" className="modal-backdrop">
-        <button>close</button>
-      </form> */}
     </dialog>
     </>
   )

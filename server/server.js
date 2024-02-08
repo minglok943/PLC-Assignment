@@ -52,24 +52,7 @@ receiver.listen()
 
 io.on("connection", (socket) => {
     console.log("Client connected");
-    io.emit("result", {RESULT_NVL: res, RESULT1_NVL: res1, RESULT2_NVL: res2, RESULT3_NVL: res3, RESULT4_NVL: res4});
-    // socket.emit("metalCountInit", metalCount);
-    // socket.emit("glassCountInit", glassCount);
-    // socket.emit("plasticCountInit", plasticCount);
-    // socket.emit("frontStat", front);
-    // socket.emit("backStat", back);
-    // socket.emit("conveyorStat", conveyor);
-  
-    socket.on("metal", () => {
-      metalCount = metalCount + 1;
-      console.log("metal count", metalCount);
-      io.emit("metalCount", metalCount);
-      const client = net.createConnection("/tmp/unix_socket");
-      client.write("metal");
-      client.end();
-    });
- 
-  
+    io.emit("result", {RESULT_NVL: res, RESULT1_NVL: res1, RESULT2_NVL: res2, RESULT3_NVL: res3, RESULT4_NVL: res4}); 
     // Handle disconnection
     socket.on("disconnect", () => {
       console.log("Client disconnected");
