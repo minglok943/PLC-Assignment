@@ -6,8 +6,6 @@ import { PiVideoDuotone } from "react-icons/pi";
 
 import { GiClick } from "react-icons/gi";
 
-
-import AreaChart from './AreaChart';
 import TimelineChart from './TimelineChart';
 import P311 from "./assets/311.mp4"
 import P312 from "./assets/312.mp4"
@@ -15,8 +13,6 @@ import P313 from "./assets/313.mp4"
 import P314 from "./assets/314.mp4"
 import P315 from "./assets/315.mp4"
 import pattern from "./assets/pattern.jpeg"
-import sophan from "./assets/sophan.jpeg"
-import { Modal } from 'react-daisyui';
 
 import io from "socket.io-client";
 const socket = io("http://localhost:4000");
@@ -64,6 +60,7 @@ export default App
 
 function PresenceTag({data, num, lecturer, video}){
   const [visible, setVisible] = useState(false);
+  const dialogId = Math.random().toString();
   const videoRef = useRef();
   useEffect(()=>{
     if(!videoRef.current) return;
@@ -71,7 +68,7 @@ function PresenceTag({data, num, lecturer, video}){
   },[])
   return(
     <>
-    <button onClick={()=>{setVisible(!visible); document.getElementById('my_modal_2').showModal()}}>
+    <button onClick={()=>{setVisible(!visible); document.getElementById(dialogId).showModal()}}>
     <div className='relative flex p-5 gap-4 border rounded-lg shadow-lg shadow-cyan-500/50'>
       <div className='flex flex-col'>
         <h1 className='text-2xl font-extrabold text-white'>{lecturer}</h1>
@@ -85,13 +82,13 @@ function PresenceTag({data, num, lecturer, video}){
     </div>
     </button>
 
-    <dialog id="my_modal_2" className="modal">
+    <dialog id={dialogId} className="modal">
       <div className="relative flex flex-row bg-slate-800 flex w-max p-10 border rounded-lg justify-center gap-10">
         <div className='flex flex-col gap-3'>
           <h1 className='font-bold text-2xl'>Direction to Room {num}</h1>
           <video ref={videoRef} src={video} loop={true} controls width={600} autoPlay={visible} muted={true} ></video>
         </div>
-          <TimelineChart></TimelineChart>
+          <TimelineChart presence={data}></TimelineChart>
           <form method='dialog'>
             <button className='absolute btn border border-white bottom-5 right-5' onClick={()=>{setVisible(!visible)}}>Close</button>
           </form>
